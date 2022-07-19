@@ -45,6 +45,16 @@ class Pokemon:
     while (self.current_stats["hp"] > 0) & (rival.current_stats["hp"] > 0):
       if mi_turno:
         # atacando
+
+        print( " Escoger ataque " )
+        print( " Escribir el numero asociado al ataque a escoger " )
+        escogido = input( f""" 
+        1. {self.ataques_por_esc["Normal"][0]}
+        2. {self.ataques_por_esc["Normal"][1]}
+        3. {self.ataques_por_esc["Normal"][2]}
+        4. {self.ataques_por_esc["Normal"][3]}
+        """ )
+
         dano = int(
             self.dano_base * 
             (self.current_stats["ataque"] / rival.current_stats["defensa"]) * 
@@ -81,10 +91,7 @@ squirtle = Pokemon(
     fortalezas = ["fuego"],
     debilidades = ["planta"],
     ataques_por_esc = {
-        "Placaje Tackle" : ["normal",35],
-        "Látigo Tail Whip" : ["normal",35],
-        "Burbuja Bubble" : ["normal",35],
-        "Refugio Withdraw" : ["normal",35]
+        "Normal" : [["Placaje Tackle",35],["Látigo Tail Whip",35],["Burbuja Bubble",35],["Refugio Withdraw",35]]
     })
 
 charmander = Pokemon(
