@@ -1,3 +1,5 @@
+import random as rm
+
 class Pokemon:
   dano_base = 10
 
@@ -31,7 +33,7 @@ class Pokemon:
       print(f"{self.especie} es fuerte a los ataques de {rival.especie} \n")
     elif rival.tipo in self.debilidades:
       modificador_defensa = 2
-      print(f"{self.especie} es debil a los ataques de {rival.especie} \n")
+      print(f"{self.especie} es debil a los ataques de {rival.especie} ")
     else:
       modificador_defensa = 1
 
@@ -47,27 +49,66 @@ class Pokemon:
         # atacando
 
         print( " Escoger ataque " )
-        print( " Escribir el numero asociado al ataque a escoger " )
-        escogido = input( f""" 
-        1. {self.ataques_por_esc["Normal"][0]}
-        2. {self.ataques_por_esc["Normal"][1]}
-        3. {self.ataques_por_esc["Normal"][2]}
-        4. {self.ataques_por_esc["Normal"][3]}
+        print( f""" 
+        1. {self.ataques_por_esc[0][0]}/ Daño: {int(self.ataques_por_esc[0][1]*self.current_stats["ataque"])}
+        2. {self.ataques_por_esc[1][0]}/ Daño: {int(self.ataques_por_esc[1][1]*self.current_stats["ataque"])}
+        3. {self.ataques_por_esc[2][0]}/ Daño: {int(self.ataques_por_esc[2][1]*self.current_stats["ataque"])}
+        4. {self.ataques_por_esc[3][0]}/ Daño: {int(self.ataques_por_esc[3][1]*self.current_stats["ataque"])}
         """ )
 
+        while True:
+            try:
+                escogido = int(input("Escribir el numero asociado al ataque a escoger: "))
+                if escogido in [1,2,3,4]:
+                    print(f"{self.especie} utliza {self.ataques_por_esc[escogido-1][0]} ")
+                    break
+                else:
+                    print("Numero debe estar entre 0 y 4")
+                    continue
+            except:
+                print("No valido, ingresar un numero")
+        
         dano = int(
             self.dano_base * 
             (self.current_stats["ataque"] / rival.current_stats["defensa"]) * 
-            modificador_ataque) 
+            modificador_ataque*self.ataques_por_esc[escogido-1][1]) 
+
+        #Randomness 
+        if escogido==1:
+            suerte=rm.randrange(1,6,1)
+        elif escogido==2:
+            suerte=rm.randrange(1,11,1)
+        elif escogido==3:
+            suerte=rm.randrange(1,4,1)
+        else:
+            suerte=rm.randrange(1,3,1)
+    
+        if suerte != 1:
+            dano = int(
+                self.dano_base * 
+                (self.current_stats["ataque"] / rival.current_stats["defensa"]) * 
+                modificador_ataque*self.ataques_por_esc[escogido-1][1]) 
+
+        else:
+            dano=0
+            print(f"Diantres!! {self.especie} ha fallado")
+
+
         rival.current_stats["hp"] -= dano
         print(f"{self.especie} hizo {dano} de daño a {rival.especie}")
         print(f"A {rival.especie} le quedan {rival.current_stats['hp']} puntos de vida")
       else:
         # defendiendo
-        dano = int(
+        suerte_rival=rm.randrange(1,5,1)
+        if suerte_rival != 1:
+            dano = int(
             rival.dano_base *
             (rival.current_stats["ataque"] / self.current_stats["defensa"]) * 
             modificador_defensa)
+        else:
+            dano=0
+            print(f"Genial!! {rival.especie4} ha fallado")
+        
         self.current_stats["hp"] -= dano
         print(f"{rival.especie} hizo {dano} de daño a {self.especie}")
         print(f"A {self.especie} le quedan {self.current_stats['hp']} puntos de vida")
@@ -78,7 +119,7 @@ class Pokemon:
       else:
         print(f'{self.especie} ha ganado la pelea \n')
 
-
+#Stats
 
 squirtle = Pokemon(
     especie = "Squirtle",
@@ -90,9 +131,8 @@ squirtle = Pokemon(
     tipo = "agua",
     fortalezas = ["fuego"],
     debilidades = ["planta"],
-    ataques_por_esc = {
-        "Normal" : [["Placaje Tackle",35],["Látigo Tail Whip",35],["Burbuja Bubble",35],["Refugio Withdraw",35]]
-    })
+    ataques_por_esc =  [["Placaje Tackle",1.0],["Látigo Tail Whip",.7],["Burbuja Bubble",1.3],["Refugio Withdraw",1.6]]
+    )
 
 charmander = Pokemon(
     especie = "Charmander",
@@ -104,12 +144,8 @@ charmander = Pokemon(
     tipo = "fuego",
     fortalezas = ["planta"],
     debilidades = ["agua"],
-    ataques_por_esc = {
-        "Gruñido Growl" : ["normal",35],
-        "Ascuas Ember" : ["normal",35],
-        "Pantalla de Humo Smokescreen" : ["normal",35],
-        "Furia Dragón Dragon Rage" : ["normal",35]
-    })
+    ataques_por_esc = [[ "Gruñido Growl" ,1.0], ["Ascuas Ember",.7], ["Pantalla de Humo Smokescreen" ,1.3],["Furia Dragón Dragon Rage",1.6]]
+    )
 
 bulbasaur = Pokemon(
     especie = "Bulbasaur",
@@ -121,12 +157,8 @@ bulbasaur = Pokemon(
     tipo = "planta",
     fortalezas = ["agua"],
     debilidades = ["fuego"],
-    ataques_por_esc = {
-        "Latigazo" : ["normal",35],
-        "Bomba lodo" : ["normal",35],
-        "Bomba germen" : ["normal",35],
-        "Furia Dragón Dragon Rage" : ["normal",35]
-    })
+    ataques_por_esc = [["Latigazo", 1.0], ["Bomba lodo" ,.7], ["Bomba germen",1.],["Bomba enselada" ,1.6]]
+    )
 
 
 squirtle.pelea(charmander)
