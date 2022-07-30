@@ -1,5 +1,9 @@
+from struct import pack
 from tkinter import *
 from PIL import ImageTk,Image
+import random as rm
+
+from sympy import ask
 
 
 #Creating a label
@@ -8,6 +12,9 @@ root.title( "Pokemon")
 
 
 
+your_frame= LabelFrame(root, text="You", padx=50, pady=50 )
+your_frame.grid(row=0, column=0)
+
 
 my_img_Pik=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Pikachu.png"))
 my_img_Char=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/charmander.png"))
@@ -15,59 +22,111 @@ my_img_Bul=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/bulbasaur.png")
 my_img_Squ=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Squirtle.png"))
 
 image_list= [my_img_Pik, my_img_Char, my_img_Bul, my_img_Squ]
+name=["1","2","3","4"]
 
-my_label = Label(image=my_img_Pik)
+my_label = Label(your_frame,image=my_img_Pik)
 my_label.grid( row=0, column=0, columnspan=3 )
+img_number=0
 
 def forward(img_number):
     global my_label
     global button_forward
     global button_back
+    global button_name
     
     my_label.grid_forget()
-    my_label=Label(image=image_list[img_number-1])
-    button_forward = Button(root, text=">>", command=lambda: forward(img_number+1))
-    button_back = Button(root, text="<<", command=lambda : back(img_number-1 ))
+    my_label=Label(your_frame,image=image_list[img_number-1])
+    button_forward = Button(your_frame, text=">>", command=lambda: forward(img_number+1))
+    button_back = Button(your_frame, text="<<", command=lambda : back(img_number-1 ))
     my_label.grid( row=0, column=0, columnspan=3 )
+    button_name=Button(your_frame, text=name[img_number-1])
 
     if img_number==4:
-        button_forward=Button(root, text=">>", state=DISABLED)
+        button_forward=Button(your_frame, text=">>", state=DISABLED)
 
 
     my_label.grid(row=0, column=0, columnspan=3)
     button_back.grid(row=1, column=0)
+    button_name.grid(row=1, column=1,columnspan=1)
     button_forward.grid(row=1, column=2,)
+    
 
 def back(img_number):
     global my_label
     global button_forward
     global button_back
-    
+    global button_name
+
     my_label.grid_forget()
 
-    my_label=Label(image=image_list[img_number-1])
-    button_forward = Button(root, text=">>", command=lambda: forward(img_number+1))
-    button_back = Button(root, text="<<", command=lambda : back(img_number-1 ))
+    my_label=Label(your_frame,image=image_list[img_number-1])
+    button_forward = Button(your_frame, text=">>", command=lambda: forward(img_number+1))
+    button_back = Button(your_frame, text="<<", command=lambda : back(img_number-1 ))
     my_label.grid( row=0, column=0, columnspan=3 )
+    button_name=Button(your_frame, text="Choose", command=)
+
 
     if img_number==1:
-        button_back=Button(root, text="<<", state=DISABLED)
+        button_back=Button(your_frame, text="<<", state=DISABLED)
 
 
     my_label.grid(row=0, column=0, columnspan=3)
     button_back.grid(row=1, column=0)
+    button_name.grid(row=1, column=1,columnspan=1)
     button_forward.grid(row=1, column=2,)
 
 
 
 
-button_back = Button(root, text="<<", command=back, state=DISABLED)
-button_quit=Button(root, text="Exit game", command=root.quit)
-button_forward = Button(root, text=">>", command= lambda: forward(2))
+button_back = Button(your_frame, text="<<", command=back, state=DISABLED)
+button_quit=Button(your_frame, text=name[img_number], command=root.quit)
+button_forward = Button(your_frame, text=">>", command= lambda: forward(2))
 
 button_back.grid(row=1, column=0)
 button_quit.grid(row=1, column=1)
 button_forward.grid(row=1, column=2)
+
+
+
+
+
+
+
+
+
+
+my_ask=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/question.png"))
+
+
+
+enemy_pokemon=rm.randrange(0,len(image_list),1)
+
+enemy_frame= LabelFrame(root, text="Enemy", padx=63, pady=63 )
+enemy_frame.grid(row=0, column=4)
+
+enemy_label = Label(enemy_frame, image=my_ask)
+enemy_label.grid( row=0, column=4, columnspan=3 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
