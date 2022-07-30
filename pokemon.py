@@ -22,24 +22,28 @@ my_img_Bul=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/bulbasaur.png")
 my_img_Squ=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Squirtle.png"))
 
 image_list= [my_img_Pik, my_img_Char, my_img_Bul, my_img_Squ]
-name=["1","2","3","4"]
+
 
 my_label = Label(your_frame,image=my_img_Pik)
 my_label.grid( row=0, column=0, columnspan=3 )
-img_number=0
+your_number=0
+
 
 def forward(img_number):
     global my_label
     global button_forward
     global button_back
     global button_name
+    global your_number
     
     my_label.grid_forget()
+    your_number=img_number
+
     my_label=Label(your_frame,image=image_list[img_number-1])
     button_forward = Button(your_frame, text=">>", command=lambda: forward(img_number+1))
     button_back = Button(your_frame, text="<<", command=lambda : back(img_number-1 ))
     my_label.grid( row=0, column=0, columnspan=3 )
-    button_name=Button(your_frame, text=name[img_number-1])
+    button_name=Button(your_frame, text="Choose",command=enemy_image)
 
     if img_number==4:
         button_forward=Button(your_frame, text=">>", state=DISABLED)
@@ -56,15 +60,17 @@ def back(img_number):
     global button_forward
     global button_back
     global button_name
+    global your_number
 
     my_label.grid_forget()
+    your_number=img_number
 
     my_label=Label(your_frame,image=image_list[img_number-1])
     button_forward = Button(your_frame, text=">>", command=lambda: forward(img_number+1))
     button_back = Button(your_frame, text="<<", command=lambda : back(img_number-1 ))
     my_label.grid( row=0, column=0, columnspan=3 )
-    button_name=Button(your_frame, text="Choose", command=)
-
+    button_name=Button(your_frame, text="Choose", command=enemy_image)
+    
 
     if img_number==1:
         button_back=Button(your_frame, text="<<", state=DISABLED)
@@ -75,16 +81,6 @@ def back(img_number):
     button_name.grid(row=1, column=1,columnspan=1)
     button_forward.grid(row=1, column=2,)
 
-
-
-
-button_back = Button(your_frame, text="<<", command=back, state=DISABLED)
-button_quit=Button(your_frame, text=name[img_number], command=root.quit)
-button_forward = Button(your_frame, text=">>", command= lambda: forward(2))
-
-button_back.grid(row=1, column=0)
-button_quit.grid(row=1, column=1)
-button_forward.grid(row=1, column=2)
 
 
 
@@ -99,10 +95,11 @@ my_ask=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/question.png"))
 
 
 
-enemy_pokemon=rm.randrange(0,len(image_list),1)
 
 enemy_frame= LabelFrame(root, text="Enemy", padx=63, pady=63 )
 enemy_frame.grid(row=0, column=4)
+
+global enemy_label
 
 enemy_label = Label(enemy_frame, image=my_ask)
 enemy_label.grid( row=0, column=4, columnspan=3 )
@@ -117,12 +114,72 @@ enemy_label.grid( row=0, column=4, columnspan=3 )
 
 
 
+#r=IntVar()
+
+
+#Radiobutton(root, text="Option 1", variable=r,value=1 ).grid(row=6,column=2)
+#Radiobutton(root, text="Option 2", variable=r,value=2 ).grid(row=7, column=2)
+
+#my_label= Label()
 
 
 
 
 
 
+def activate_fight():
+    print(  your_number, "vs", enemy_number )
+    
+
+
+def enemy_image():
+
+    global enemy_number
+    enemy_number=rm.randrange(0,len(image_list))
+    enemy_label.config(image=image_list[enemy_number]) 
+
+
+    button_back = Button(your_frame, text="<<", command=back, state=DISABLED)
+    button_forward = Button(your_frame, text=">>", command=back, state=DISABLED)
+    button_fight=Button(root, text="Let´s fight",command=activate_fight)
+    button_name=Button(your_frame, text="Choose",state=DISABLED)
+    
+    button_back.grid(row=1, column=0)
+    button_name.grid(row=1, column=1)
+    button_forward.grid(row=1, column=2)
+    button_fight.grid(row=5,column=2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+button_back = Button(your_frame, text="<<", command=back, state=DISABLED)
+button_name=Button(your_frame, text="Choose", command=enemy_image)
+button_forward = Button(your_frame, text=">>", command= lambda: forward(2))
+
+button_back.grid(row=1, column=0)
+button_name.grid(row=1, column=1)
+button_forward.grid(row=1, column=2)
+
+
+
+button_fight=Button(root, text="Let´s fight",state=DISABLED)
+button_fight.grid(row=5,column=2)
 
 
 
@@ -131,6 +188,15 @@ enemy_label.grid( row=0, column=4, columnspan=3 )
 
 
 root.mainloop()
+
+
+
+
+
+
+
+
+
 
 
 
