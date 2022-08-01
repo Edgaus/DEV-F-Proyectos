@@ -228,49 +228,50 @@ text_box.grid(row=0, column=0)
 text_box.insert('end', text_stats(0))
 text_box.config(state='disabled')
 
+
 #Images to 
 
-my_img_Pik=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Pikachu.png"))
+my_img_Pik=ImageTk.PhotoImage(Image.open("./Folder/Pikachu.png"))
 
-my_img_Pik_atacando1=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque1_pikachu.png"))
-my_img_Pik_atacando2=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque2_pikachu.png"))
-my_img_Pik_atacando3=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque3_pikachu.png"))
-my_img_Pik_atacando4=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque4_pikachu.png"))
+my_img_Pik_atacando1=ImageTk.PhotoImage(Image.open("./Folder/ataque1_pikachu.png"))
+my_img_Pik_atacando2=ImageTk.PhotoImage(Image.open("./Folder/ataque2_pikachu.png"))
+my_img_Pik_atacando3=ImageTk.PhotoImage(Image.open("./Folder/ataque3_pikachu.png"))
+my_img_Pik_atacando4=ImageTk.PhotoImage(Image.open("./Folder/ataque4_pikachu.png"))
 
-my_win_Pik=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Pikachu-wins.png"))
-my_sad_Pik=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Pikachu_sad.png"))
-
-
-my_img_Char=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Charmander.png"))
-
-my_img_Char_atacando1=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque1_charmander.png"))
-my_img_Char_atacando2=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque2_charmander.png"))
-my_img_Char_atacando3=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque3_charmander.png"))
-my_img_Char_atacando4=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque4_charmander.png"))
-
-my_win_Char=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/charmander_wins.png"))
-my_sad_Char=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/charmander_sad.png"))
+my_win_Pik=ImageTk.PhotoImage(Image.open("./Folder/Pikachu-wins.png"))
+my_sad_Pik=ImageTk.PhotoImage(Image.open("./Folder/Pikachu_sad.png"))
 
 
-my_img_Bul=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/bulbasaur.png"))
+my_img_Char=ImageTk.PhotoImage(Image.open("./Folder/Charmander.png"))
 
-my_img_Bul_atacando1=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque1_bulbasaur.png"))
-my_img_Bul_atacando2=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque2_bulbasaur.png"))
-my_img_Bul_atacando3=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque3_bulbasaur.png"))
-my_img_Bul_atacando4=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque4_bulbasaur.png"))
+my_img_Char_atacando1=ImageTk.PhotoImage(Image.open("./Folder/ataque1_charmander.png"))
+my_img_Char_atacando2=ImageTk.PhotoImage(Image.open("./Folder/ataque2_charmander.png"))
+my_img_Char_atacando3=ImageTk.PhotoImage(Image.open("./Folder/ataque3_charmander.png"))
+my_img_Char_atacando4=ImageTk.PhotoImage(Image.open("./Folder/ataque4_charmander.png"))
 
-my_win_Bul=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/bulbasuar_win.png"))
-my_sad_Bul=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/bulbasaur_sad.png"))
+my_win_Char=ImageTk.PhotoImage(Image.open("./Folder/charmander_wins.png"))
+my_sad_Char=ImageTk.PhotoImage(Image.open("./Folder/charmander_sad.png"))
 
-my_img_Squ=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Squirtle.png"))
 
-my_img_Squ_atacando1=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque1_squirtle.png"))
-my_img_Squ_atacando2=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque2_squirtle.png"))
-my_img_Squ_atacando3=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque3_squirtle.png"))
-my_img_Squ_atacando4=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque4_squirtle.png"))
+my_img_Bul=ImageTk.PhotoImage(Image.open("./Folder/bulbasaur.png"))
 
-my_win_Squ=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/squirtle_wins.png"))
-my_sad_Squ=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/squirtle_sad.png"))
+my_img_Bul_atacando1=ImageTk.PhotoImage(Image.open("./Folder/ataque1_bulbasaur.png"))
+my_img_Bul_atacando2=ImageTk.PhotoImage(Image.open("./Folder/ataque2_bulbasaur.png"))
+my_img_Bul_atacando3=ImageTk.PhotoImage(Image.open("./Folder/ataque3_bulbasaur.png"))
+my_img_Bul_atacando4=ImageTk.PhotoImage(Image.open("./Folder/ataque4_bulbasaur.png"))
+
+my_win_Bul=ImageTk.PhotoImage(Image.open("./Folder/bulbasuar_win.png"))
+my_sad_Bul=ImageTk.PhotoImage(Image.open("./Folder/bulbasaur_sad.png"))
+
+my_img_Squ=ImageTk.PhotoImage(Image.open("./Folder/Squirtle.png"))
+
+my_img_Squ_atacando1=ImageTk.PhotoImage(Image.open("./Folder/ataque1_squirtle.png"))
+my_img_Squ_atacando2=ImageTk.PhotoImage(Image.open("./Folder/ataque2_squirtle.png"))
+my_img_Squ_atacando3=ImageTk.PhotoImage(Image.open("./Folder/ataque3_squirtle.png"))
+my_img_Squ_atacando4=ImageTk.PhotoImage(Image.open("./Folder/ataque4_squirtle.png"))
+
+my_win_Squ=ImageTk.PhotoImage(Image.open("./Folder/squirtle_wins.png"))
+my_sad_Squ=ImageTk.PhotoImage(Image.open("./Folder/squirtle_sad.png"))
 
 
 
@@ -368,7 +369,7 @@ def back(img_number):
 
 #Images from the enemy
 
-my_ask=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/question.png"))
+my_ask=ImageTk.PhotoImage(Image.open("./Folder/question.png"))
  
 enemy_frame= LabelFrame(root, text="Enemy", padx=50, pady=33, font=("Terminal", 10), bg="black",fg="white")
 enemy_frame.grid(row=0, column=3)
