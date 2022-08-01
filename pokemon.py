@@ -2,22 +2,26 @@ from struct import pack
 from tkinter import *
 from PIL import ImageTk,Image
 import random as rm
-
+from matplotlib.pyplot import text
 from sympy import ask
 
+
+
 # Pokemo_game
+
+
 
 class Pokemon_game:
   dano_base = 10
 
-  def __init__(self, especie, stats, tipo, fortalezas, debilidades, ataques_por_esc):
-    self.especie = especie
-    self.stats = stats
+  def __init__(self,Pokemon,number):
+    self.especie =Pokemon[number]['especie']
+    self.stats = Pokemon[number]['stats']
     self.current_stats = self.stats.copy()
-    self.tipo = tipo
-    self.debilidades = debilidades
-    self.fortalezas = fortalezas
-    self.ataques_por_esc = ataques_por_esc
+    self.tipo = Pokemon[number]['tipo']
+    self.debilidades = Pokemon[number]['debilidades']
+    self.fortalezas = Pokemon[number]['fortalezas']
+    self.ataques_por_esc = Pokemon[number]['ataques_por_esc']
 
   def centro_pokemon(self):
     self.current_stats = self.stats
@@ -53,15 +57,14 @@ class Pokemon_game:
     # combate por turnos
     while (self.current_stats["hp"] > 0) & (rival.current_stats["hp"] > 0):
       if mi_turno:
-        # atacando
+        # atacando defwetewweweee
 
-        print( " Escoger ataque " )
-        print( f""" 
-        1. {self.ataques_por_esc[0][0]}/ Daño: {int(self.ataques_por_esc[0][1]*self.current_stats["ataque"])}
-        2. {self.ataques_por_esc[1][0]}/ Daño: {int(self.ataques_por_esc[1][1]*self.current_stats["ataque"])}
-        3. {self.ataques_por_esc[2][0]}/ Daño: {int(self.ataques_por_esc[2][1]*self.current_stats["ataque"])}
-        4. {self.ataques_por_esc[3][0]}/ Daño: {int(self.ataques_por_esc[3][1]*self.current_stats["ataque"])}
-        """ )
+        
+
+        Radiobutton(your_stats, text=f"1.", variable=r, value=1, command=counter).grid(row=3, column=0)
+        Radiobutton(your_stats, text=f"2.", variable=r, value=2, command=counter).grid(row=4, column=0)
+        Radiobutton(your_stats, text=f"3.", variable=r, value=3, command=counter).grid(row=5, column=0)
+        Radiobutton(your_stats, text=f"4.", variable=r, value=4, command=counter).grid(row=6, column=0)  
 
         while True:
             try:
@@ -126,7 +129,6 @@ class Pokemon_game:
       else:
         print(f'{self.especie} ha ganado la pelea \n')
 
-
 #Pokemons stats
 
 Pokemon={
@@ -180,52 +182,7 @@ Pokemon={
     'ataques_por_esc' :  [["Placaje Tackle",1.0],["Látigo Tail Whip",.7],["Burbuja Bubble",1.3],["Refugio Withdraw",1.6]]
   }
 
-
-  
 }
-
-
-squirtle = Pokemon_game(
-    especie = "Squirtle",
-    stats = {
-        "velocidad": 43,
-        "hp": 44,
-        "ataque": 48,
-        "defensa": 65},
-    tipo = "agua",
-    fortalezas = ["fuego"],
-    debilidades = ["planta"],
-    ataques_por_esc =  [["Placaje Tackle",1.0],["Látigo Tail Whip",.7],["Burbuja Bubble",1.3],["Refugio Withdraw",1.6]]
-    )
-
-Charmander = {
-    'especie' : "1Pokemon[0]1",
-    'stats' : {
-        "velocidad": 65,
-        "hp": 39,
-        "ataque": 52,
-        "defensa": 43},
-    'tipo' : "fuego",
-    'fortalezas' : "planta",
-    'debilidades' : "agua",
-    'ataques_por_esc' : [[ "Gruñido Growl" ,1.0], ["Ascuas Ember",.7], ["Pantalla de Humo Smokescreen" ,1.3],["Furia Dragón Dragon Rage",1.6]]
-}
-
-bulbasaur = {
-    'especie' : "Bulbasaur",
-    'stats' : {
-        "velocidad": 45,
-        "hp": 45,
-        "ataque": 49,
-        "defensa": 49},
-    'tipo' : "planta",
-    'fortalezas' : ["agua"],
-    'debilidades' : ["fuego"],
-    'ataques_por_esc' : [["Latigazo", 1.0], ["Bomba lodo" ,.7], ["Bomba germen",1.],["Bomba enselada" ,1.6]]
-}
-
-
-
 
 #Creating a label
 root = Tk() 
@@ -234,16 +191,17 @@ root.title( "Pokemon")
 #Your frame
 
 global your_frame
-your_frame= LabelFrame(root, text="You", padx=50, pady=0 )
+your_frame= LabelFrame(root, text="You", padx=50, pady=20 )
 your_frame.grid(row=0, column=0)
 
 #Your frame stats
 
+
+r=IntVar()
+
 global your_stats
-your_stats= LabelFrame(root, text='Your stats', padx=50, pady=50)
+your_stats= LabelFrame(root, text='Your stats', padx=50, pady=73)
 your_stats.grid(row=0, column=1)
-
-
 
 def text_stats(img_number):
 
@@ -253,16 +211,17 @@ def text_stats(img_number):
   str(Pokemon[img_number]["ataques_por_esc"][2][0]) +"\n"  "\t" + str(Pokemon[img_number]["ataques_por_esc"][3][0])  + "\n""\n" "tipo: " + str(Pokemon[img_number]['tipo']) + "\n"+ \
   "\n" "Fortalezas: " + str(Pokemon[img_number]['fortalezas']) + "\n"+  "\n" "Debilidad: " + str(Pokemon[img_number]['debilidades']) 
   return(text)
+
+
 text_box = Text(
     your_stats,
     height=20,
     width=40
     )
+
 text_box.grid(row=0, column=0)
 text_box.insert('end', text_stats(0))
 text_box.config(state='disabled')
-
-
 
 #Images to 
 
@@ -273,12 +232,11 @@ my_img_Squ=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Squirtle.png"))
 
 image_list= [my_img_Pik, my_img_Char, my_img_Bul, my_img_Squ]
 
-
 my_label = Label(your_frame,image=my_img_Pik)
 my_label.grid( row=0, column=0, columnspan=3 )
 your_number=1
 
-#Function to choose image
+#Selecionador de jugadores hacia adelante
 
 def forward(img_number):
     global my_label
@@ -288,8 +246,6 @@ def forward(img_number):
     global your_number
     global text_box
   
-
-
     my_label.grid_forget()
     your_number=img_number
 
@@ -301,7 +257,6 @@ def forward(img_number):
 
     if img_number==len(image_list):
         button_forward=Button(your_frame, text=">>", state=DISABLED)
-
 
     my_label.grid(row=0, column=0, columnspan=3)
     button_back.grid(row=1, column=0)
@@ -317,6 +272,7 @@ def forward(img_number):
     text_box.insert('end', text_stats(img_number-1))
     text_box.config(state='disabled')
 
+#Selecionador de jugadores hacia atras
 
 def back(img_number):
     global my_label
@@ -326,10 +282,6 @@ def back(img_number):
     global your_number
     global text_box
   
-
-
-
-
     my_label.grid_forget()
     your_number=img_number
 
@@ -339,7 +291,6 @@ def back(img_number):
     my_label.grid( row=0, column=0, columnspan=3 )
     button_name=Button(your_frame, text="Choose", command=enemy_image)
     
-
     if img_number==1:
         button_back=Button(your_frame, text="<<", state=DISABLED)
 
@@ -358,34 +309,18 @@ def back(img_number):
     text_box.insert('end', text_stats(img_number-1))
     text_box.config(state='disabled')
 
-
-
-
-
 #Images from the enemy
-
-
 
 my_ask=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/question.png"))
 
-
-
-
-enemy_frame= LabelFrame(root, text="Enemy", padx=50, pady=50 )
+enemy_frame= LabelFrame(root, text="Enemy", padx=50, pady=33 )
 enemy_frame.grid(row=0, column=3)
 
 global enemy_label
 
 enemy_label = Label(enemy_frame, image=my_ask)
-enemy_label.grid( row=0, column=3, columnspan=3 )
-
-
-
-def activate_fight():
-    print(  your_number-1, "vs", enemy_number )
-    
-
-
+enemy_label.grid( row=0, column=3 )
+  
 def enemy_image():
 
     global enemy_number
@@ -406,27 +341,7 @@ def enemy_image():
 
 
 
-
-#r=IntVar()
-
-
-#Radiobutton(root, text="Option 1", variable=r,value=1 ).grid(row=6,column=2)
-#Radiobutton(root, text="Option 2", variable=r,value=2 ).grid(row=7, column=2)
-
-#my_label= Label()
-
-
-
-
-
-
-
-
-
-
-
-
-
+#Botones iniciales
 
 button_back = Button(your_frame, text="<<", command=back, state=DISABLED)
 button_name=Button(your_frame, text="Choose", command=enemy_image)
@@ -436,21 +351,48 @@ button_back.grid(row=1, column=0)
 button_name.grid(row=1, column=1)
 button_forward.grid(row=1, column=2)
 
-
-
-button_fight=Button(root, text="Let´s fight",state=DISABLED)
+button_fight=Button(root, text="Lets fight",state=DISABLED)
 button_fight.grid(row=5,column=1)
 
 
+
+
+Pikachu=Pokemon_game(Pokemon,0)
+charmander=Pokemon_game(Pokemon,1)
+Bulbasuar=Pokemon_game(Pokemon,2)
+Squirtle=Pokemon_game(Pokemon,3)
+
+Peleadores=[Pikachu,charmander, Bulbasuar,Squirtle ]
+
+def counter():
+    # use global variable
+    
+    global my_text
+    my_text= str(r.get()) 
+    # configure
+    your_stats.config(text = my_text)
+    return my_text
+
+
+
+def activate_fight():
+    
+    your_stats.config( text='New stats')
+
+
+    for child in your_stats.winfo_children():
+      child.destroy()
+
+    button_fight=Button(root, text="End game",command=root.quit)
+    button_fight.grid(row=5,column=1)
+
+    Peleadores[your_number-1].pelea(Peleadores[enemy_number])
 
 
 
 
 
 root.mainloop()
-
-
-
 
 
 
