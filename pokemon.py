@@ -29,7 +29,42 @@ class Pokemon_game:
 
   def pelea(self, rival):
     text=""
-
+ 
+    # Tu rival es furte o debil a ti?
+    if self.tipo in rival.fortalezas:
+      modificador_ataque = 1/2
+    elif self.tipo in rival.debilidades:
+      modificador_ataque = 2
+    else:
+      modificador_ataque = 1
+    
+    #eres fuerte o debil a tu rival?
+    if rival.tipo in self.fortalezas:
+      modificador_defensa = 1/2
+    elif rival.tipo in self.debilidades:
+      modificador_defensa = 2
+    else:
+      modificador_defensa = 1    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     # quien ataca primero
     if self.current_stats["velocidad"] >= rival.current_stats["velocidad"]:
       mi_turno = True
@@ -50,7 +85,7 @@ class Pokemon_game:
         
           dano = int(
             self.dano_base * 
-            (self.current_stats["ataque"] / rival.current_stats["defensa"]) * 
+            (self.current_stats["ataque"] / rival.current_stats["defensa"]) * modificador_ataque*
             self.ataques_por_esc[escogido-1][1]) 
 
           #Randomness 
@@ -66,7 +101,7 @@ class Pokemon_game:
           if suerte != 1:
             dano = int(
                 self.dano_base * 
-                (self.current_stats["ataque"] / rival.current_stats["defensa"]) * 
+                (self.current_stats["ataque"] / rival.current_stats["defensa"]) * modificador_ataque*
                 self.ataques_por_esc[escogido-1][1]) 
 
           else:
@@ -93,7 +128,7 @@ class Pokemon_game:
              dano = int(
              rival.dano_base *
             (rival.current_stats["ataque"] / self.current_stats["defensa"]) * 
-          1)
+          modificador_defensa)
           else:
               dano=0
               text+=(f"Genial!! {rival.especie} ha fallado")+"\n"
@@ -212,10 +247,10 @@ text_box.config(state='disabled')
 
 #Images to 
 
-my_img_Pik=ImageTk.PhotoImage(Image.open("Pikachu.png"))
-my_img_Char=ImageTk.PhotoImage(Image.open("Charmander.png"))
-my_img_Bul=ImageTk.PhotoImage(Image.open("bulbasaur.png"))
-my_img_Squ=ImageTk.PhotoImage(Image.open("Squirtle.png"))
+my_img_Pik=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos-main/DEV-F-Proyectos-main/Pikachu.png"))
+my_img_Char=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos-main/DEV-F-Proyectos-main/Charmander.png"))
+my_img_Bul=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos-main/DEV-F-Proyectos-main/bulbasaur.png"))
+my_img_Squ=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos-main/DEV-F-Proyectos-main/Squirtle.png"))
 
 image_list= [my_img_Pik, my_img_Char, my_img_Bul, my_img_Squ]
 
@@ -298,7 +333,7 @@ def back(img_number):
 
 #Images from the enemy
 
-my_ask=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/question.png"))
+my_ask=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos-main/DEV-F-Proyectos-main/question.png"))
 
 enemy_frame= LabelFrame(root, text="Enemy", padx=50, pady=33 )
 enemy_frame.grid(row=0, column=3)
