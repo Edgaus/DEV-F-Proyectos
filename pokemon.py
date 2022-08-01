@@ -42,10 +42,12 @@ class Pokemon_game:
     if (self.current_stats["hp"] > 0) & (rival.current_stats["hp"] > 0):
       
       for i in range(2):
-
+        
         
         if mi_turno:
-      
+          
+          text+="\n"+"\n"+"\t"+"Tu ataque: "+ "\n"+"\n"
+
           escogido=r.get()
         
           dano = int(
@@ -71,17 +73,28 @@ class Pokemon_game:
 
           else:
             dano=0
-            text=(f"Diantres!! {self.especie} ha fallado")+"\n"
+            text+=(f"Diantres!! {self.especie} ha fallado")+"\n"
 
 
           rival.current_stats["hp"] -= dano
           text+=(f"{self.especie} hizo {dano} de daño a {rival.especie}")+"\n"
           text+=(f"A {rival.especie} le quedan {rival.current_stats['hp']} puntos de vida")+"\n"
-        
+
+          print( rival.current_stats["hp"])
+            #button_fight.config( text="Se acabo", command=text_func("Has ganado") )
+            #continue
+
           mi_turno=not mi_turno
+
+
+
+
+
 
         else :
           # defendiendo
+
+          text+="\n"+"\n"+"\t"+"Ataque del enemigo:"+"\n"+"\n"
           suerte_rival=rm.randrange(1,5,1)
           if suerte_rival != 1:
              dano = int(
@@ -95,14 +108,18 @@ class Pokemon_game:
           self.current_stats["hp"] -= dano
           text+=(f"{rival.especie} hizo {dano} de daño a {self.especie}")+"\n"
           text+=(f"A {self.especie} le quedan {self.current_stats['hp']} puntos de vida")+"\n"
-        
+
+          print( self.current_stats["hp"])
+          #button_fight.config( text="Se acabo", command=text_func("Has perdido") )
+           # continue
+
           mi_turno = not mi_turno
 
     else:
       if self.current_stats["hp"] <= 0:
-        text+=(f'{rival.especie} ha ganado la pelea \n')+"\n"
+        button_fight.config( text="Se acabo", command=text_func("Has perdido") )
       else:
-        text+=(f'{self.especie} ha ganado la pelea \n')+"\n"
+        button_fight.config( text="Se acabo", command=text_func("Has ganado") )
 
     text_func(text)
 
@@ -310,15 +327,13 @@ def enemy_image():
 
     button_back = Button(your_frame, text="<<", command=back, state=DISABLED)
     button_forward = Button(your_frame, text=">>", command=back, state=DISABLED)
-    button_fight=Button(root, text="Let´s fight",command=activate_fight)
-    button_name=Button(your_frame, text="Choose",state=DISABLED)
-    
+    button_fight.config( text="Let´s fight",command=activate_fight, state=NORMAL)
+    button_name.config(state=DISABLED)
+
     button_back.grid(row=1, column=0)
     button_name.grid(row=1, column=1)
     button_forward.grid(row=1, column=2)
     button_fight.grid(row=5,column=1)
-
-
 
 
 #Botones iniciales
@@ -331,9 +346,9 @@ button_back.grid(row=1, column=0)
 button_name.grid(row=1, column=1)
 button_forward.grid(row=1, column=2)
 
+
 button_fight=Button(root, text="Lets fight",state=DISABLED)
 button_fight.grid(row=5,column=1)
-
 
 
 
@@ -354,8 +369,13 @@ def text_func(text):
   text_box.insert('end', text)
   text_box.config(state='disabled')
 
-  button_fight=Button(root, text="Siguiente turno: ",command=activate_fight)
-  button_fight.grid(row=5,column=1)
+  button_fight.config( text="Siguiente turno: ",command=activate_fight)
+
+  if text=="Has ganado" or text=="Has perdido":
+    button_fight.config( text="Salir ",command=root.quit)
+
+  
+
 
 def delscreen():
   for child in your_stats.winfo_children():
@@ -370,8 +390,8 @@ def fight():
   
 def botton():
   a=r.get()
-  button_fight=Button(root, text="Confirmar ataque: "+str(a),command=fight)
-  button_fight.grid(row=5,column=1)
+  button_fight.config(text="Confirmar ataque: "+str(a),command=fight)
+
   
 
 
@@ -380,19 +400,15 @@ def activate_fight():
   for child in your_stats.winfo_children():
     child.destroy()
       
-    
+   
   your_stats.config( text='Lets fight')
       
-  Radiobutton(your_stats, text=Pokemon[your_number-1]["ataques_por_esc"][0][0], variable=r, value=1, command=botton).grid(row=3, column=0)
-  Radiobutton(your_stats, text=Pokemon[your_number-1]["ataques_por_esc"][1][0], variable=r, value=2, command=botton).grid(row=4, column=0)
-  Radiobutton(your_stats, text=Pokemon[your_number-1]["ataques_por_esc"][2][0], variable=r, value=3, command=botton).grid(row=5, column=0)
-  Radiobutton(your_stats, text=Pokemon[your_number-1]["ataques_por_esc"][3][0], variable=r, value=4, command=botton).grid(row=6, column=0)  
+  Radiobutton(your_stats, text=" 80% de exito: "+Pokemon[your_number-1]["ataques_por_esc"][0][0], variable=r, value=1, command=botton).grid(row=3, column=0)
+  Radiobutton(your_stats, text=" 90% de exito: "+Pokemon[your_number-1]["ataques_por_esc"][1][0], variable=r, value=2, command=botton).grid(row=4, column=0)
+  Radiobutton(your_stats, text=" 67% de exito: "+Pokemon[your_number-1]["ataques_por_esc"][2][0], variable=r, value=3, command=botton).grid(row=5, column=0)
+  Radiobutton(your_stats, text=" 50% de exito: "+Pokemon[your_number-1]["ataques_por_esc"][3][0], variable=r, value=4, command=botton).grid(row=6, column=0)  
 
-  button_fight=Button(root, text="Salir del juego",command=root.quit)
-  button_fight.grid(row=5,column=1)
-
-
-
+  button_fight.config( text="Escoger ataque")
   
 
 
@@ -401,14 +417,7 @@ def activate_fight():
 
 
 
-
-
-
-
 root.mainloop()
-
-
-
 
 
 
