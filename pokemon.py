@@ -44,26 +44,7 @@ class Pokemon_game:
     elif rival.tipo in self.debilidades:
       modificador_defensa = 2
     else:
-      modificador_defensa = 1    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+      modificador_defensa = 1     
     
     # quien ataca primero
     if self.current_stats["velocidad"] >= rival.current_stats["velocidad"]:
@@ -125,11 +106,13 @@ class Pokemon_game:
           text+="\n"+"\n"+"\t"+"Ataque del enemigo:"+"\n"+"\n"
           suerte_rival=rm.randrange(1,5,1)
           if suerte_rival != 1:
+             enemy_label.config(image=image_attack[enemy_number][suerte_rival-2]) 
              dano = int(
              rival.dano_base *
             (rival.current_stats["ataque"] / self.current_stats["defensa"]) * 
           modificador_defensa)
           else:
+              enemy_label.config(image=image_list[enemy_number]) 
               dano=0
               text+=(f"Genial!! {rival.especie} ha fallado")+"\n"
         
@@ -247,12 +230,62 @@ text_box.config(state='disabled')
 
 #Images to 
 
-my_img_Pik=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos-main/DEV-F-Proyectos-main/Pikachu.png"))
-my_img_Char=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos-main/DEV-F-Proyectos-main/Charmander.png"))
-my_img_Bul=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos-main/DEV-F-Proyectos-main/bulbasaur.png"))
-my_img_Squ=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos-main/DEV-F-Proyectos-main/Squirtle.png"))
+my_img_Pik=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Pikachu.png"))
+
+my_img_Pik_atacando1=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque1_pikachu.png"))
+my_img_Pik_atacando2=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque2_pikachu.png"))
+my_img_Pik_atacando3=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque3_pikachu.png"))
+my_img_Pik_atacando4=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque4_pikachu.png"))
+
+my_win_Pik=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Pikachu-wins.png"))
+my_sad_Pik=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Pikachu_sad.png"))
+
+
+my_img_Char=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Charmander.png"))
+
+my_img_Char_atacando1=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque1_charmander.png"))
+my_img_Char_atacando2=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque2_charmander.png"))
+my_img_Char_atacando3=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque3_charmander.png"))
+my_img_Char_atacando4=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque4_charmander.png"))
+
+my_win_Char=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/charmander_wins.png"))
+my_sad_Char=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/charmander_sad.png"))
+
+
+my_img_Bul=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/bulbasaur.png"))
+
+my_img_Bul_atacando1=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque1_bulbasaur.png"))
+my_img_Bul_atacando2=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque2_bulbasaur.png"))
+my_img_Bul_atacando3=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque3_bulbasaur.png"))
+my_img_Bul_atacando4=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque4_bulbasaur.png"))
+
+my_win_Bul=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/bulbasuar_win.png"))
+my_sad_Bul=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/bulbasaur_sad.png"))
+
+my_img_Squ=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Squirtle.png"))
+
+my_img_Squ_atacando1=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque1_squirtle.png"))
+my_img_Squ_atacando2=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque2_squirtle.png"))
+my_img_Squ_atacando3=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque3_squirtle.png"))
+my_img_Squ_atacando4=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/ataque4_squirtle.png"))
+
+my_win_Squ=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/squirtle_wins.png"))
+my_sad_Squ=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/squirtle_sad.png"))
+
+
 
 image_list= [my_img_Pik, my_img_Char, my_img_Bul, my_img_Squ]
+
+image_attack=[ [my_img_Pik_atacando1, my_img_Pik_atacando2,my_img_Pik_atacando3, my_img_Pik_atacando4],
+               [my_img_Char_atacando1, my_img_Char_atacando2,my_img_Char_atacando3, my_img_Char_atacando4],
+               [my_img_Bul_atacando1, my_img_Bul_atacando2,my_img_Bul_atacando3, my_img_Bul_atacando4],
+               [my_img_Squ_atacando1, my_img_Squ_atacando2,my_img_Squ_atacando3, my_img_Squ_atacando4]
+]
+
+image_result=[ 
+              [my_win_Pik, my_win_Char, my_win_Bul, my_win_Squ],
+              [my_sad_Pik, my_sad_Char, my_sad_Bul, my_sad_Squ]
+ ]
 
 my_label = Label(your_frame,image=my_img_Pik)
 my_label.grid( row=0, column=0, columnspan=3 )
@@ -333,7 +366,7 @@ def back(img_number):
 
 #Images from the enemy
 
-my_ask=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos-main/DEV-F-Proyectos-main/question.png"))
+my_ask=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/question.png"))
 
 enemy_frame= LabelFrame(root, text="Enemy", padx=50, pady=33 )
 enemy_frame.grid(row=0, column=3)
@@ -427,6 +460,7 @@ def fight():
   
 def botton():
   a=r.get()
+  my_label.config(image=image_attack[your_number-1][r.get()-1])
   button_fight.config(text="Confirmar ataque: "+str(a),command=fight)
 
   
@@ -453,8 +487,11 @@ def activate_fight():
 
 def victoria(number):
   button_fight.config(text="Se acabo", command=delscreenf(number))
-  
-
-
+  if number==1:
+    my_label.config(image=image_result[0][your_number-1])
+    enemy_label.config(image=image_result[1][enemy_number]) 
+  else:
+    my_label.config(image=image_result[1][your_number-1])
+    enemy_label.config(image=image_result[0][enemy_number]) 
 
 root.mainloop()
