@@ -3,6 +3,7 @@ from tkinter import *
 from PIL import ImageTk,Image
 import random as rm
 from matplotlib.pyplot import text
+from requests import delete
 from sympy import ask
 
 
@@ -27,26 +28,9 @@ class Pokemon_game:
     self.current_stats = self.stats
 
   def pelea(self, rival):
-    
-    # Tu rival es furte o debil a ti?
-    if self.tipo in rival.fortalezas:
-      modificador_ataque = 1/2
-      print(f"{rival.especie} es fuerte a los ataques de {self.especie} \n")
-    elif self.tipo in rival.debilidades:
-      modificador_ataque = 2
-      print(f"{rival.especie} es debil a los ataques de {self.especie} \n")
-    else:
-      modificador_ataque = 1
-    
-    #eres fuerte o debil a tu rival?
-    if rival.tipo in self.fortalezas:
-      modificador_defensa = 1/2
-      print(f"{self.especie} es fuerte a los ataques de {rival.especie} \n")
-    elif rival.tipo in self.debilidades:
-      modificador_defensa = 2
-      print(f"{self.especie} es debil a los ataques de {rival.especie} ")
-    else:
-      modificador_defensa = 1
+    text=""
+
+
 
     # quien ataca primero
     if self.current_stats["velocidad"] >= rival.current_stats["velocidad"]:
@@ -55,94 +39,87 @@ class Pokemon_game:
       mi_turno = False
     
     # combate por turnos
-    while (self.current_stats["hp"] > 0) & (rival.current_stats["hp"] > 0):
-      if mi_turno:
-        # atacando defwetewweweee
+    if (self.current_stats["hp"] > 0) & (rival.current_stats["hp"] > 0):
+      
+      for i in range(2):
 
         
-
-        Radiobutton(your_stats, text=f"1.", variable=r, value=1, command=counter).grid(row=3, column=0)
-        Radiobutton(your_stats, text=f"2.", variable=r, value=2, command=counter).grid(row=4, column=0)
-        Radiobutton(your_stats, text=f"3.", variable=r, value=3, command=counter).grid(row=5, column=0)
-        Radiobutton(your_stats, text=f"4.", variable=r, value=4, command=counter).grid(row=6, column=0)  
-
-        while True:
-            try:
-                escogido = int(input("Escribir el numero asociado al ataque a escoger: "))
-                if escogido in [1,2,3,4]:
-                    print(f"{self.especie} utliza {self.ataques_por_esc[escogido-1][0]} ")
-                    break
-                else:
-                    print("Numero debe estar entre 0 y 4")
-                    continue
-            except:
-                print("No valido, ingresar un numero")
+        if mi_turno:
+      
+          escogido=r.get()
         
-        dano = int(
+          dano = int(
             self.dano_base * 
             (self.current_stats["ataque"] / rival.current_stats["defensa"]) * 
-            modificador_ataque*self.ataques_por_esc[escogido-1][1]) 
+            self.ataques_por_esc[escogido-1][1]) 
 
-        #Randomness 
-        if escogido==1:
+          #Randomness 
+          if escogido==1:
             suerte=rm.randrange(1,6,1)
-        elif escogido==2:
+          elif escogido==2:
             suerte=rm.randrange(1,11,1)
-        elif escogido==3:
+          elif escogido==3:
             suerte=rm.randrange(1,4,1)
-        else:
+          else:
             suerte=rm.randrange(1,3,1)
     
-        if suerte != 1:
+          if suerte != 1:
             dano = int(
                 self.dano_base * 
                 (self.current_stats["ataque"] / rival.current_stats["defensa"]) * 
-                modificador_ataque*self.ataques_por_esc[escogido-1][1]) 
+                self.ataques_por_esc[escogido-1][1]) 
 
-        else:
+          else:
             dano=0
-            print(f"Diantres!! {self.especie} ha fallado")
+            text=(f"Diantres!! {self.especie} ha fallado")+"\n"
 
 
-        rival.current_stats["hp"] -= dano
-        print(f"{self.especie} hizo {dano} de daño a {rival.especie}")
-        print(f"A {rival.especie} le quedan {rival.current_stats['hp']} puntos de vida")
-      else:
-        # defendiendo
-        suerte_rival=rm.randrange(1,5,1)
-        if suerte_rival != 1:
-            dano = int(
-            rival.dano_base *
-            (rival.current_stats["ataque"] / self.current_stats["defensa"]) * 
-            modificador_defensa)
-        else:
-            dano=0
-            print(f"Genial!! {rival.especie} ha fallado")
+          rival.current_stats["hp"] -= dano
+          text+=(f"{self.especie} hizo {dano} de daño a {rival.especie}")+"\n"
+          text+=(f"A {rival.especie} le quedan {rival.current_stats['hp']} puntos de vida")+"\n"
         
-        self.current_stats["hp"] -= dano
-        print(f"{rival.especie} hizo {dano} de daño a {self.especie}")
-        print(f"A {self.especie} le quedan {self.current_stats['hp']} puntos de vida")
-      mi_turno = not mi_turno
+          mi_turno=not mi_turno
+
+        else :
+          # defendiendo
+          suerte_rival=rm.randrange(1,5,1)
+          if suerte_rival != 1:
+             dano = int(
+             rival.dano_base *
+            (rival.current_stats["ataque"] / self.current_stats["defensa"]) * 
+          1)
+          else:
+              dano=0
+              text+=(f"Genial!! {rival.especie} ha fallado")+"\n"
+        
+          self.current_stats["hp"] -= dano
+          text+=(f"{rival.especie} hizo {dano} de daño a {self.especie}")+"\n"
+          text+=(f"A {self.especie} le quedan {self.current_stats['hp']} puntos de vida")+"\n"
+        
+          mi_turno = not mi_turno
+
     else:
       if self.current_stats["hp"] <= 0:
-        print(f'{rival.especie} ha ganado la pelea \n')
+        text+=(f'{rival.especie} ha ganado la pelea \n')+"\n"
       else:
-        print(f'{self.especie} ha ganado la pelea \n')
+        text+=(f'{self.especie} ha ganado la pelea \n')+"\n"
+
+    text_func(text)
 
 #Pokemons stats
 
 Pokemon={
   0 : {
-    'especie' : "Charmander",
+    'especie' : "Pikachu",
     'stats' : {
         "velocidad": 65,
         "hp": 39,
         "ataque": 52,
         "defensa": 43},
-    'tipo' : "fuego",
+    'tipo' : "electrico",
     'fortalezas' : "planta",
     'debilidades' : "agua",
-    'ataques_por_esc' : [[ "Gruñido Growl" ,1.0], ["Ascuas Ember",.7], ["Pantalla de Humo Smokescreen" ,1.3],["Furia Dragón Dragon Rage",1.6]]
+    'ataques_por_esc' : [[ "Impactrueno" ,1.0], ["Relampago",.7], ["Lightthunder" ,1.3],["Lightshockwave",1.6]]
   },  
   1 : {
     'especie' : "Charmander",
@@ -324,7 +301,10 @@ enemy_label.grid( row=0, column=3 )
 def enemy_image():
 
     global enemy_number
-    enemy_number=rm.randrange(0,len(image_list))
+    while True:
+      enemy_number=rm.randrange(0,len(image_list))
+      if enemy_number!=your_number-1:
+        break
     enemy_label.config(image=image_list[enemy_number]) 
 
 
@@ -364,35 +344,96 @@ Squirtle=Pokemon_game(Pokemon,3)
 
 Peleadores=[Pikachu,charmander, Bulbasuar,Squirtle ]
 
-def counter():
-    # use global variable
-    
-    global my_text
-    my_text= str(r.get()) 
-    # configure
-    your_stats.config(text = my_text)
-    return my_text
+def text_func(text):
+  text_box = Text(
+    your_stats,
+    height=20,
+    width=40
+    )
+  text_box.grid(row=0, column=0)
+  text_box.insert('end', text)
+  text_box.config(state='disabled')
 
+  button_fight=Button(root, text="Siguiente turno: ",command=activate_fight)
+  button_fight.grid(row=5,column=1)
+
+def delscreen():
+  for child in your_stats.winfo_children():
+    child.destroy() 
+
+
+
+def fight():
+  for child in your_stats.winfo_children():
+    child.destroy()
+  Peleadores[your_number-1].pelea(Peleadores[enemy_number])
+  
+def botton():
+  a=r.get()
+  button_fight=Button(root, text="Confirmar ataque: "+str(a),command=fight)
+  button_fight.grid(row=5,column=1)
+  
 
 
 def activate_fight():
+
+  for child in your_stats.winfo_children():
+    child.destroy()
+      
     
-    your_stats.config( text='New stats')
+  your_stats.config( text='Lets fight')
+      
+  Radiobutton(your_stats, text=Pokemon[your_number-1]["ataques_por_esc"][0][0], variable=r, value=1, command=botton).grid(row=3, column=0)
+  Radiobutton(your_stats, text=Pokemon[your_number-1]["ataques_por_esc"][1][0], variable=r, value=2, command=botton).grid(row=4, column=0)
+  Radiobutton(your_stats, text=Pokemon[your_number-1]["ataques_por_esc"][2][0], variable=r, value=3, command=botton).grid(row=5, column=0)
+  Radiobutton(your_stats, text=Pokemon[your_number-1]["ataques_por_esc"][3][0], variable=r, value=4, command=botton).grid(row=6, column=0)  
+
+  button_fight=Button(root, text="Salir del juego",command=root.quit)
+  button_fight.grid(row=5,column=1)
 
 
-    for child in your_stats.winfo_children():
-      child.destroy()
 
-    button_fight=Button(root, text="End game",command=root.quit)
-    button_fight.grid(row=5,column=1)
+  
 
-    Peleadores[your_number-1].pelea(Peleadores[enemy_number])
+
+
+
+
+
 
 
 
 
 
 root.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
