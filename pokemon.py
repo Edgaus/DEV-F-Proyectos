@@ -212,10 +212,10 @@ text_box.config(state='disabled')
 
 #Images to 
 
-my_img_Pik=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Pikachu.png"))
-my_img_Char=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Charmander.png"))
-my_img_Bul=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/bulbasaur.png"))
-my_img_Squ=ImageTk.PhotoImage(Image.open("DEV-F-Proyectos/Images/Squirtle.png"))
+my_img_Pik=ImageTk.PhotoImage(Image.open("Pikachu.png"))
+my_img_Char=ImageTk.PhotoImage(Image.open("Charmander.png"))
+my_img_Bul=ImageTk.PhotoImage(Image.open("bulbasaur.png"))
+my_img_Squ=ImageTk.PhotoImage(Image.open("Squirtle.png"))
 
 image_list= [my_img_Pik, my_img_Char, my_img_Bul, my_img_Squ]
 
