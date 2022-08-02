@@ -6,6 +6,9 @@ import random as rm
 from matplotlib.pyplot import text
 from requests import delete
 from sympy import ask
+import pathlib
+path=pathlib.Path(__file__).parent.resolve()
+
 
 # Pokemo_game
 
@@ -52,6 +55,7 @@ class Pokemon_game:
     # combate por turnos
     if (self.current_stats["hp"] > 0) & (rival.current_stats["hp"] > 0):
       
+      #Turno: tu-enemigo / enemigo-tu.
       for i in range(2):
         
         
@@ -192,7 +196,7 @@ root.title( "Pokemon")
 root.config(bg="black")
 
 
-#Your frame
+#Frame donde se observa el pokemon a escoger
 
 global your_frame
 your_frame= LabelFrame(root, text="You", padx=50, pady=20, font=("Terminal", 10), bg="black",fg="white" )
@@ -200,12 +204,15 @@ your_frame.grid(row=0, column=0)
 
 #Your frame stats
 
+#Frame donde se prensentan tus estadisticas
 
 r=IntVar()
 
 global your_stats
 your_stats= LabelFrame(root, text='Your stats', padx=50, pady=73, font=("Terminal", 10), bg="black",fg="white")
 your_stats.grid(row=0, column=1)
+
+#Funcion para imprimir las estadisticas de cada pokemon
 
 def text_stats(img_number):
 
@@ -216,6 +223,7 @@ def text_stats(img_number):
   "\n" "Fortalezas: " + str(Pokemon[img_number]['fortalezas']) + "\n"+  "\n" "Debilidad: " + str(Pokemon[img_number]['debilidades']) 
   return(text)
 
+#Caja de texto de las estaditicas
 
 text_box = Text( 
     your_stats,
@@ -229,51 +237,51 @@ text_box.insert('end', text_stats(0))
 text_box.config(state='disabled')
 
 
-#Images to 
+#Images que se utlizan en el videojuuego
 
-my_img_Pik=ImageTk.PhotoImage(Image.open("./Folder/Pikachu.png"))
+my_img_Pik=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/Pikachu.png"))
 
-my_img_Pik_atacando1=ImageTk.PhotoImage(Image.open("./Folder/ataque1_pikachu.png"))
-my_img_Pik_atacando2=ImageTk.PhotoImage(Image.open("./Folder/ataque2_pikachu.png"))
-my_img_Pik_atacando3=ImageTk.PhotoImage(Image.open("./Folder/ataque3_pikachu.png"))
-my_img_Pik_atacando4=ImageTk.PhotoImage(Image.open("./Folder/ataque4_pikachu.png"))
+my_img_Pik_atacando1=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque1_pikachu.png"))
+my_img_Pik_atacando2=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque2_pikachu.png"))
+my_img_Pik_atacando3=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque3_pikachu.png"))
+my_img_Pik_atacando4=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque4_pikachu.png"))
 
-my_win_Pik=ImageTk.PhotoImage(Image.open("./Folder/Pikachu-wins.png"))
-my_sad_Pik=ImageTk.PhotoImage(Image.open("./Folder/Pikachu_sad.png"))
-
-
-my_img_Char=ImageTk.PhotoImage(Image.open("./Folder/Charmander.png"))
-
-my_img_Char_atacando1=ImageTk.PhotoImage(Image.open("./Folder/ataque1_charmander.png"))
-my_img_Char_atacando2=ImageTk.PhotoImage(Image.open("./Folder/ataque2_charmander.png"))
-my_img_Char_atacando3=ImageTk.PhotoImage(Image.open("./Folder/ataque3_charmander.png"))
-my_img_Char_atacando4=ImageTk.PhotoImage(Image.open("./Folder/ataque4_charmander.png"))
-
-my_win_Char=ImageTk.PhotoImage(Image.open("./Folder/charmander_wins.png"))
-my_sad_Char=ImageTk.PhotoImage(Image.open("./Folder/charmander_sad.png"))
+my_win_Pik=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/Pikachu-wins.png"))
+my_sad_Pik=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/Pikachu_sad.png"))
 
 
-my_img_Bul=ImageTk.PhotoImage(Image.open("./Folder/bulbasaur.png"))
+my_img_Char=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/Charmander.png"))
 
-my_img_Bul_atacando1=ImageTk.PhotoImage(Image.open("./Folder/ataque1_bulbasaur.png"))
-my_img_Bul_atacando2=ImageTk.PhotoImage(Image.open("./Folder/ataque2_bulbasaur.png"))
-my_img_Bul_atacando3=ImageTk.PhotoImage(Image.open("./Folder/ataque3_bulbasaur.png"))
-my_img_Bul_atacando4=ImageTk.PhotoImage(Image.open("./Folder/ataque4_bulbasaur.png"))
+my_img_Char_atacando1=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque1_charmander.png"))
+my_img_Char_atacando2=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque2_charmander.png"))
+my_img_Char_atacando3=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque3_charmander.png"))
+my_img_Char_atacando4=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque4_charmander.png"))
 
-my_win_Bul=ImageTk.PhotoImage(Image.open("./Folder/bulbasuar_win.png"))
-my_sad_Bul=ImageTk.PhotoImage(Image.open("./Folder/bulbasaur_sad.png"))
-
-my_img_Squ=ImageTk.PhotoImage(Image.open("./Folder/Squirtle.png"))
-
-my_img_Squ_atacando1=ImageTk.PhotoImage(Image.open("./Folder/ataque1_squirtle.png"))
-my_img_Squ_atacando2=ImageTk.PhotoImage(Image.open("./Folder/ataque2_squirtle.png"))
-my_img_Squ_atacando3=ImageTk.PhotoImage(Image.open("./Folder/ataque3_squirtle.png"))
-my_img_Squ_atacando4=ImageTk.PhotoImage(Image.open("./Folder/ataque4_squirtle.png"))
-
-my_win_Squ=ImageTk.PhotoImage(Image.open("./Folder/squirtle_wins.png"))
-my_sad_Squ=ImageTk.PhotoImage(Image.open("./Folder/squirtle_sad.png"))
+my_win_Char=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/charmander_wins.png"))
+my_sad_Char=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/charmander_sad.png"))
 
 
+my_img_Bul=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/bulbasaur.png"))
+
+my_img_Bul_atacando1=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque1_bulbasaur.png"))
+my_img_Bul_atacando2=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque2_bulbasaur.png"))
+my_img_Bul_atacando3=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque3_bulbasaur.png"))
+my_img_Bul_atacando4=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque4_bulbasaur.png"))
+
+my_win_Bul=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/bulbasuar_win.png"))
+my_sad_Bul=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/bulbasaur_sad.png"))
+
+my_img_Squ=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/Squirtle.png"))
+
+my_img_Squ_atacando1=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque1_squirtle.png"))
+my_img_Squ_atacando2=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque2_squirtle.png"))
+my_img_Squ_atacando3=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque3_squirtle.png"))
+my_img_Squ_atacando4=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/ataque4_squirtle.png"))
+
+my_win_Squ=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/squirtle_wins.png"))
+my_sad_Squ=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/squirtle_sad.png"))
+
+#Listas donde guardamos las imagenes para distintas ocaciones del videojuego
 
 image_list= [my_img_Pik, my_img_Char, my_img_Bul, my_img_Squ]
 
@@ -292,7 +300,7 @@ my_label = Label(your_frame,image=my_img_Pik, font=("Terminal", 10), bg="black",
 my_label.grid( row=0, column=0, columnspan=3 )
 your_number=1
 
-#Selecionador de jugadores hacia adelante
+#Selecionador de pokemon hacia adelante
 
 def forward(img_number):
     global my_label
@@ -329,7 +337,7 @@ def forward(img_number):
     text_box.insert('end', text_stats(img_number-1))
     text_box.config(state='disabled')
 
-#Selecionador de jugadores hacia atras
+#Selecionador de pokemon hacia atras
 
 def back(img_number):
     global my_label
@@ -367,18 +375,22 @@ def back(img_number):
     text_box.insert('end', text_stats(img_number-1))
     text_box.config(state='disabled')
 
-#Images from the enemy
+#Seleccion del pokemon enemigo
 
-my_ask=ImageTk.PhotoImage(Image.open("./Folder/question.png"))
+my_ask=ImageTk.PhotoImage(Image.open(str(path)+"/Folder/question.png"))
  
 enemy_frame= LabelFrame(root, text="Enemy", padx=50, pady=33, font=("Terminal", 10), bg="black",fg="white")
 enemy_frame.grid(row=0, column=3)
+
+#Label donde se observa el pokemon a convatir
 
 global enemy_label
 
 enemy_label = Label(enemy_frame, image=my_ask, font=("Terminal", 10), bg="black",fg="white")
 enemy_label.grid( row=0, column=3 )
-  
+
+#Seleccion del pokemon a vencer de forma aleatoria
+
 def enemy_image():
 
     global enemy_number
@@ -414,6 +426,7 @@ button_forward.grid(row=1, column=2)
 button_fight=Button(root, text="Lets fight",state=DISABLED, font=("Terminal", 10), bg="black",fg="white")
 button_fight.grid(row=5,column=1)
 
+#Definicion de los pokemon-objetos
 
 
 Pikachu=Pokemon_game(Pokemon,0)
@@ -421,7 +434,11 @@ charmander=Pokemon_game(Pokemon,1)
 Bulbasuar=Pokemon_game(Pokemon,2)
 Squirtle=Pokemon_game(Pokemon,3)
 
+#Lista de peleadores
+
 Peleadores=[Pikachu,charmander, Bulbasuar,Squirtle ]
+
+#Funcion para imprimir la informacion de cada turno del juego
 
 def text_func(text):
   text_box = Text(
@@ -436,9 +453,13 @@ def text_func(text):
 
   button_fight.config( text="Siguiente turno: ",command=activate_fight, font=("Terminal", 10), bg="black",fg="white")
 
+#Funcion para refrescar los frames cada vez que se actualice la informacion
+
 def delscreen():
   for child in your_stats.winfo_children():
     child.destroy() 
+
+#Funcion especifica para reescribir los frames al finalizar la partida
 
 def delscreenf(number):
   for child in your_stats.winfo_children():
@@ -453,11 +474,15 @@ def delscreenf(number):
   
   final()
 
+#Funcion para activar la pelea, una vez que tu el jugador haya seleccionado su pokemon y el enemigo aleatorio ha sido escogido 
+
 def fight():
   for child in your_stats.winfo_children():
     child.destroy()
   Peleadores[your_number-1].pelea(Peleadores[enemy_number])
   
+#Funcion que reescibe el boton de siguiente turno/confirmar ataque
+
 def botton():
   a=r.get()
   my_label.config(image=image_attack[your_number-1][r.get()-1])
@@ -466,6 +491,8 @@ def botton():
   
 def final():
   Termina=Button(root,text="Terminar" ,command=root.quit, font=("Terminal", 10), bg="black",fg="white").grid(row=3, column=1)
+
+#Funcion que muestra los distintos ataques que el jugador puede esciger para atacar
 
 def activate_fight():
 
@@ -481,6 +508,8 @@ def activate_fight():
   Radiobutton(your_stats, text=" 50% de exito: "+Pokemon[your_number-1]["ataques_por_esc"][3][0], variable=r, value=4, command=botton, font=("Terminal", 10), bg="black",fg="white",).grid(row=6, column=0)  
 
   button_fight.config( text="Escoger ataque") 
+
+#Funcion que termina el juego 
 
 def victoria(number):
   button_fight.config(text="Se acabo", command=delscreenf(number))
